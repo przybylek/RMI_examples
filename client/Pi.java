@@ -1,6 +1,6 @@
 package client;
 
-import server.Task;
+import common.Task;
 import java.io.Serializable;
 import java.math.BigDecimal;
 

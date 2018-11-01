@@ -3,7 +3,7 @@
 # contributor: Adam Przybylek
 
 # The client's codebase URL and port
-HTTPserverIP=192.168.0.16
+HTTPserverIP=192.168.0.17
 HTTPserverPort=8080
 
 # The RMI registry's IP address
@@ -16,11 +16,12 @@ LOG=-Dsun.rmi.loader.logLevel=SILENT
 # Delete all existing .class files
 rm client/*.class &>/dev/null
 rm server/*.class &>/dev/null
+rm common/*.class &>/dev/null
 
 # Compile the client-side code
 javac client/ComputePi.java
 
-# Make the client-side bytecode available via the HTTP server
+# Make the client-side bytecode available via an HTTP server
 myIP=$(ip addr | grep 'state UP' -A2 | tail -n1 | awk '{print $2}' | cut -f1  -d'/')
 if [ $HTTPserverIP = $myIP ]
 then
@@ -34,3 +35,8 @@ read
 
 # Run the client app
 java -Djava.rmi.server.codebase=http://$HTTPserverIP:$HTTPserverPort/ -Djava.rmi.server.useCodebaseOnly=false -Djava.security.policy=java.policy $LOG client.ComputePi $RMIserverIP 10
+
+echo
+echo "Stop the HTTP server before running this script again"
+ps
+echo "kill -TERM PID"

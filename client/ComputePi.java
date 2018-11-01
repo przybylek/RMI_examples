@@ -3,7 +3,7 @@ package client;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.math.BigDecimal;
-import server.Compute;
+import common.Compute;
 
 public class ComputePi {
     public static void main(String args[]) {
