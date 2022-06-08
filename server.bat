@@ -42,4 +42,4 @@ start /B hfs.exe common
 @pause
 
 ::Run the server app
-java -Djava.rmi.server.codebase=http://%HTTPserverIP%:%HTTPserverPort%/ -Djava.rmi.server.hostname=%myIP% -Djava.security.policy=java.policy -Djava.rmi.server.useCodebaseOnly=false %LOG% server.ComputeEngine
+java -Djava.rmi.server.codebase=http://%HTTPserverIP%:%HTTPserverPort%/ -Djava.rmi.server.hostname=%myIP% -Djava.security.policy=java.policy -Djava.security.manager=allow -Djava.rmi.server.useCodebaseOnly=false %LOG% server.ComputeEngine

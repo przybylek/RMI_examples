@@ -25,7 +25,8 @@ javac client/ComputePi.java
 myIP=$(ip addr | grep 'state UP' -A2 | tail -n1 | awk '{print $2}' | cut -f1  -d'/')
 if [ $HTTPserverIP = $myIP ]
 then
-    python -m SimpleHTTPServer $HTTPserverPort &
+    python3 -m http.server $HTTPserverPort &
+    # python -m SimpleHTTPServer $HTTPserverPort &
 else
     echo "Start the HTTP server on $HTTPserverIP:$HTTPserverPort"
     echo "Upload the client-side bytecode to the HTTP server"
@@ -34,7 +35,7 @@ echo "Press Enter when the HTTP server is on..."
 read
 
 # Run the client app
-java -Djava.rmi.server.codebase=http://$HTTPserverIP:$HTTPserverPort/ -Djava.rmi.server.useCodebaseOnly=false -Djava.security.policy=java.policy $LOG client.ComputePi $RMIserverIP 10
+java -Djava.rmi.server.codebase=http://$HTTPserverIP:$HTTPserverPort/ -Djava.rmi.server.useCodebaseOnly=false -Djava.security.manager=allow -Djava.security.policy=java.policy $LOG client.ComputePi $RMIserverIP 10
 
 echo
 echo "Stop the HTTP server before running this script again"

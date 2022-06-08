@@ -31,7 +31,8 @@ javac server/ComputeEngine.java
 # Make the server-side bytecode available via an HTTP server
 if [ $HTTPserverIP = $myIP ]
 then
-    python -m SimpleHTTPServer $HTTPserverPort &
+    python3 -m http.server $HTTPserverPort &
+    # python -m SimpleHTTPServer $HTTPserverPort &
 else
     echo "Start the HTTP server on $HTTPserverIP:$HTTPserverPort"
     echo "Upload the server-side bytecode to the HTTP server"
@@ -40,7 +41,7 @@ echo "Press Enter when the HTTP server is on..."
 read
 
 # Run the server app
-java -Djava.rmi.server.codebase=http://$HTTPserverIP:$HTTPserverPort/ -Djava.rmi.server.hostname=$myIP -Djava.rmi.server.useCodebaseOnly=false -Djava.security.policy=java.policy $LOG server.ComputeEngine
+java -Djava.rmi.server.codebase=http://$HTTPserverIP:$HTTPserverPort/ -Djava.rmi.server.hostname=$myIP -Djava.rmi.server.useCodebaseOnly=false -Djava.security.manager=allow -Djava.security.policy=java.policy $LOG server.ComputeEngine
 
 echo
 echo "Stop the HTTP server and RMIregistry before running this script again"
