@@ -34,8 +34,11 @@ fi
 echo "Press Enter when the HTTP server is on..."
 read
 
+Precision=$((1 + $RANDOM % 10))
+echo "precision: $Precision"
+
 # Run the client app
-java -Djava.rmi.server.codebase=http://$HTTPserverIP:$HTTPserverPort/ -Djava.rmi.server.useCodebaseOnly=false -Djava.security.manager=allow -Djava.security.policy=java.policy $LOG client.ComputePi $RMIserverIP 10
+java -Djava.rmi.server.codebase=http://$HTTPserverIP:$HTTPserverPort/ -Djava.rmi.server.useCodebaseOnly=false -Djava.security.manager=allow -Djava.security.policy=java.policy $LOG client.ComputePi $RMIserverIP $Precision
 
 echo
 echo "Stop the HTTP server before running this script again"

@@ -30,6 +30,9 @@ start /B hfs.exe client
 @echo.
 @pause
 
+SET /A Precision=%RANDOM% %%10 +1
+echo "precision: %Precision%"
+
 ::Run the client app
-java -Djava.rmi.server.codebase=http://%HTTPserverIP%:%HTTPserverPort%/ -Djava.security.policy=java.policy -Djava.security.manager=allow -Djava.rmi.server.useCodebaseOnly=false %LOG% client.ComputePi %RMIregistryIP% 10
+java -Djava.rmi.server.codebase=http://%HTTPserverIP%:%HTTPserverPort%/ -Djava.security.policy=java.policy -Djava.security.manager=allow -Djava.rmi.server.useCodebaseOnly=false %LOG% client.ComputePi %RMIregistryIP% %Precision%
 
